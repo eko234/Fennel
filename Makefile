@@ -15,11 +15,14 @@ SRC=$(LIB_SRC) src/launcher.fnl src/fennel/binary.fnl
 
 build: fennel fennel.lua
 
+TEST_LUA_PATH ?= "test/?.lua;./?.lua" # allow using system-wide luaunit
+
 test: fennel.lua
-	$(LUA) test/init.lua $(TESTS)
+	export LUA_PATH=$(TEST_LUA_PATH); $(LUA) test/init.lua $(TESTS)
 
 testall: export FNL_TESTALL = 1
 testall: export FNL_TEST_OUTPUT ?= text
+testall: export LUA_PATH=$(TEST_LUA_PATH)
 testall: fennel fennel.lua
 	@printf 'Testing lua 5.1:\n'  ; lua5.1 test/init.lua
 	@printf "\nTesting lua 5.2:\n"; lua5.2 test/init.lua

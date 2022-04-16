@@ -162,7 +162,7 @@ Supports an :into clause after the iterator to put results in an existing table.
 Supports early termination with an :until clause."
   (assert (and (sequence? iter-tbl) (>= (length iter-tbl) 2))
           "expected iterator binding table")
-  (assert (not= nil value-expr) "expected table value expression")
+  (assert (not= nil value-expr) "expected body value expression")
   (assert (= nil ...)
           "expected exactly one body expression. Wrap multiple expressions in do")
   (let [(into iter) (extract-into iter-tbl)]
